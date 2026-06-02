@@ -1,0 +1,1832 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anleitung Schichtleitung · FK West</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter+Tight:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0d0f13;
+    --bg-elevated: #16191f;
+    --bg-card: #1a1d24;
+    --bg-subtle: #12141a;
+    --border: #232830;
+    --border-bright: #323844;
+    --text: #e8ecf2;
+    --text-muted: #8a92a3;
+    --text-dim: #5a6170;
+    --accent: #d4a574;
+    --accent-bright: #e8b97f;
+    --accent-dim: #8b6f4f;
+    --blue: #6ba3d6;
+    --green: #7cb87c;
+    --yellow: #d4b867;
+    --red: #cf6f6f;
+    --purple: #a88bc9;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { min-height: 100%; }
+
+  body {
+    font-family: 'Inter Tight', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    background-image:
+      radial-gradient(ellipse at 15% 20%, rgba(212, 165, 116, 0.04), transparent 50%),
+      radial-gradient(ellipse at 85% 80%, rgba(107, 163, 214, 0.03), transparent 50%);
+    min-height: 100vh;
+  }
+
+  .view {
+    display: none;
+    animation: viewIn 0.4s cubic-bezier(0.32, 0.72, 0, 1);
+  }
+
+  .view.active { display: block; }
+
+  @keyframes viewIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ============= NAV-BUTTONS ============= */
+  .nav-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+  }
+
+  .nav-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 11px 18px;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-bright);
+    border-radius: 6px;
+    color: var(--text);
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 13px;
+    transition: all 0.2s;
+  }
+
+  .nav-button:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .nav-button.home {
+    background: var(--bg-card);
+  }
+
+  /* ============= HOME ============= */
+  .home-wrap {
+    padding: 48px 48px 100px;
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
+  .hero {
+    margin-bottom: 32px;
+    max-width: 760px;
+  }
+
+  .hero .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+
+  .hero h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 48px;
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    margin-bottom: 18px;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--accent);
+    font-weight: 400;
+  }
+
+  .hero p {
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--text-muted);
+  }
+
+  .intro-banner {
+    background: rgba(212, 165, 116, 0.06);
+    border: 1px solid rgba(212, 165, 116, 0.2);
+    border-radius: 8px;
+    padding: 16px 22px;
+    margin-bottom: 36px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--text);
+    max-width: 920px;
+  }
+
+  .intro-banner-icon {
+    color: var(--accent);
+    font-size: 18px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .section-title {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 24px;
+    margin-top: 8px;
+  }
+
+  .section-title .sec-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    color: var(--text-dim);
+    text-transform: uppercase;
+  }
+
+  .section-title .sec-name {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 19px;
+    color: var(--accent);
+    font-weight: 500;
+  }
+
+  .section-title .sec-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--accent-dim), transparent);
+    opacity: 0.4;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 18px;
+  }
+
+  .card {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 26px 26px 22px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 240px;
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--area-color, var(--accent));
+    transform: scaleX(0.3);
+    transform-origin: left;
+    transition: transform 0.4s cubic-bezier(0.32, 0.72, 0, 1);
+  }
+
+  .card:hover {
+    border-color: var(--area-color, var(--accent));
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.3);
+  }
+
+  .card:hover::before { transform: scaleX(1); }
+
+  .card-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  .card-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    background: var(--area-color, var(--accent));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 19px;
+    flex-shrink: 0;
+  }
+
+  .card-tx {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: rgba(212, 165, 116, 0.08);
+    border: 1px solid rgba(212, 165, 116, 0.2);
+    padding: 4px 9px;
+    border-radius: 4px;
+  }
+
+  .card h3 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    margin-bottom: 10px;
+  }
+
+  .card-desc {
+    font-size: 13px;
+    line-height: 1.55;
+    color: var(--text-muted);
+    flex: 1;
+    margin-bottom: 18px;
+  }
+
+  .card-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+  }
+
+  .card-stats {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    color: var(--text-dim);
+  }
+
+  .card-arrow {
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-dim);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 16px;
+    transition: all 0.3s;
+  }
+
+  .card:hover .card-arrow {
+    color: var(--area-color, var(--accent));
+    transform: translateX(4px);
+  }
+
+  /* ============= TRANSACTION VIEW ============= */
+  .tx-header {
+    margin-bottom: 32px;
+  }
+
+  .tx-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .tx-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 40px;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+  }
+
+  .tx-title em {
+    font-style: italic;
+    color: var(--accent);
+    font-weight: 400;
+  }
+
+  .tx-desc {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--text-muted);
+    max-width: 720px;
+  }
+
+  /* ============= STEP-LIST ============= */
+  .steps-wrap {
+    margin-top: 36px;
+  }
+
+  .step-node {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 14px;
+    overflow: hidden;
+    transition: border-color 0.3s;
+  }
+
+  .step-node.expanded {
+    border-color: var(--accent);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  }
+
+  .step-head {
+    padding: 18px 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    user-select: none;
+  }
+
+  .step-head:hover { background: var(--bg-card); }
+
+  .step-num {
+    width: 40px;
+    height: 40px;
+    background: var(--bg-card);
+    border: 2px solid var(--accent);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    flex-shrink: 0;
+    transition: all 0.3s;
+  }
+
+  .step-node.expanded .step-num {
+    background: var(--accent);
+    color: var(--bg);
+  }
+
+  .step-title {
+    flex: 1;
+    font-family: 'Fraunces', serif;
+    font-size: 19px;
+    font-weight: 500;
+    line-height: 1.2;
+  }
+
+  .step-toggle {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-muted);
+    font-size: 12px;
+    transition: all 0.3s;
+    flex-shrink: 0;
+  }
+
+  .step-node.expanded .step-toggle {
+    transform: rotate(180deg);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .step-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+  }
+
+  .step-node.expanded .step-body { max-height: 4000px; }
+
+  .step-body-inner {
+    padding: 0 24px 24px;
+    border-top: 1px solid var(--border);
+    padding-top: 22px;
+  }
+
+  /* ============= STEP-BLOCKS ============= */
+  .block {
+    margin-bottom: 22px;
+  }
+
+  .block:last-child {
+    margin-bottom: 0;
+  }
+
+  .block-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+
+  .block-label-icon {
+    width: 22px;
+    height: 22px;
+    border-radius: 5px;
+    background: var(--block-color, var(--accent));
+    color: var(--bg);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .block-label-text {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  .block-body {
+    padding-left: 32px;
+  }
+
+  .block-body p {
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--text);
+  }
+
+  .block-body ol, .block-body ul {
+    padding-left: 4px;
+    list-style: none;
+    counter-reset: step-counter;
+  }
+
+  .block-body ol li {
+    padding: 10px 14px 10px 36px;
+    background: var(--bg-card);
+    border-radius: 6px;
+    margin-bottom: 6px;
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: var(--text);
+    position: relative;
+    counter-increment: step-counter;
+  }
+
+  .block-body ol li::before {
+    content: counter(step-counter, decimal-leading-zero);
+    position: absolute;
+    left: 14px;
+    top: 11px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--accent);
+  }
+
+  .block-body ul li {
+    padding: 6px 0 6px 16px;
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: var(--text);
+    position: relative;
+  }
+
+  .block-body ul li::before {
+    content: '·';
+    position: absolute;
+    left: 4px;
+    top: 4px;
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 16px;
+  }
+
+  /* Tipps & Stolperfallen block - special highlight */
+  .block.tips {
+    background: rgba(212, 184, 103, 0.04);
+    border: 1px solid rgba(212, 184, 103, 0.15);
+    border-radius: 8px;
+    padding: 14px 18px;
+  }
+
+  .block.tips .block-body p,
+  .block.tips .block-body ul li {
+    color: var(--text);
+  }
+
+  .block.tips .block-body {
+    padding-left: 30px;
+  }
+
+  /* Screenshot placeholder */
+  .screenshot-placeholder {
+    background: var(--bg-card);
+    border: 2px dashed var(--border-bright);
+    border-radius: 8px;
+    padding: 40px 24px;
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11.5px;
+    color: var(--text-dim);
+    letter-spacing: 0.05em;
+    margin-left: 32px;
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .screenshot-placeholder .ph-icon {
+    font-size: 32px;
+    opacity: 0.4;
+    margin-bottom: 4px;
+  }
+
+  .screenshot-placeholder .ph-label {
+    font-weight: 600;
+    color: var(--text-muted);
+  }
+
+  .screenshot-placeholder .ph-hint {
+    font-style: italic;
+    opacity: 0.7;
+    max-width: 320px;
+  }
+
+  /* Code/key inline */
+  code {
+    font-family: 'JetBrains Mono', monospace;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-size: 11.5px;
+    color: var(--accent);
+  }
+
+  /* Phase Header */
+  .phase-block {
+    margin: 32px 0 18px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .phase-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--text-dim);
+    text-transform: uppercase;
+  }
+
+  .phase-name {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 18px;
+    color: var(--accent);
+  }
+
+  .phase-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--accent-dim), transparent);
+    opacity: 0.4;
+  }
+
+  /* ============= REFERENZ-BOX (aufklappbar) ============= */
+  .ref-box {
+    background: rgba(212, 165, 116, 0.04);
+    border: 1px solid rgba(212, 165, 116, 0.18);
+    border-radius: 8px;
+    margin-top: 12px;
+    overflow: hidden;
+    margin-left: 32px;
+  }
+
+  .ref-box-head {
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.2s;
+  }
+
+  .ref-box-head:hover {
+    background: rgba(212, 165, 116, 0.08);
+  }
+
+  .ref-box-icon {
+    width: 22px;
+    height: 22px;
+    border-radius: 5px;
+    background: var(--accent);
+    color: var(--bg);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .ref-box-title {
+    flex: 1;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .ref-box-chevron {
+    color: var(--accent);
+    font-size: 11px;
+    transition: transform 0.3s;
+  }
+
+  .ref-box.open .ref-box-chevron {
+    transform: rotate(180deg);
+  }
+
+  .ref-box-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.32, 0.72, 0, 1);
+  }
+
+  .ref-box.open .ref-box-body {
+    max-height: 1200px;
+  }
+
+  .ref-box-body-inner {
+    padding: 4px 16px 16px;
+  }
+
+  .ref-table {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 8px 16px;
+    margin-top: 4px;
+  }
+
+  .ref-table .ref-key {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 600;
+    background: var(--bg-card);
+    padding: 4px 10px;
+    border-radius: 4px;
+    align-self: start;
+    white-space: nowrap;
+  }
+
+  .ref-table .ref-val {
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--text);
+    align-self: center;
+  }
+
+  /* ============= FLOATING BUTTON ============= */
+  .float-btn {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    z-index: 100;
+    display: none;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 22px;
+    background: var(--accent);
+    color: var(--bg);
+    border: none;
+    border-radius: 100px;
+    font-family: 'Inter Tight', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4), 0 0 0 1px rgba(212, 165, 116, 0.3);
+    transition: all 0.25s;
+  }
+
+  .float-btn.visible {
+    display: inline-flex;
+  }
+
+  .float-btn:hover {
+    background: var(--accent-bright);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.5), 0 0 0 1px rgba(212, 165, 116, 0.5);
+  }
+
+  .float-btn .clock-icon {
+    font-size: 16px;
+  }
+
+  /* ============= OVERLAY ============= */
+  .overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 200;
+    display: none;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 40px 20px;
+    overflow-y: auto;
+    backdrop-filter: blur(4px);
+  }
+
+  .overlay.open {
+    display: flex;
+    animation: overlayIn 0.25s ease-out;
+  }
+
+  @keyframes overlayIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .overlay-panel {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    max-width: 960px;
+    width: 100%;
+    max-height: calc(100vh - 80px);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.6);
+  }
+
+  .overlay-head {
+    padding: 22px 28px 18px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .overlay-title-block .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    letter-spacing: 0.18em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 5px;
+  }
+
+  .overlay-title-block h2 {
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 1.1;
+  }
+
+  .overlay-title-block h2 em {
+    font-style: italic;
+    color: var(--accent);
+    font-weight: 400;
+  }
+
+  .overlay-close {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    flex-shrink: 0;
+  }
+
+  .overlay-close:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .overlay-tabs {
+    display: flex;
+    gap: 2px;
+    padding: 12px 22px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .overlay-tab {
+    padding: 11px 18px;
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+    margin-bottom: -1px;
+  }
+
+  .overlay-tab:hover {
+    color: var(--text);
+  }
+
+  .overlay-tab.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+
+  .overlay-body {
+    padding: 22px 28px 28px;
+    overflow-y: auto;
+    flex: 1;
+  }
+
+  .overlay-legend {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    font-size: 11.5px;
+    color: var(--text-muted);
+    margin-bottom: 18px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .overlay-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .overlay-legend-color {
+    width: 18px;
+    height: 14px;
+    border-radius: 3px;
+  }
+
+  .legend-rot { background: rgba(207, 111, 111, 0.7); }
+  .legend-gelb { background: rgba(212, 184, 103, 0.8); }
+  .legend-gruen { background: rgba(124, 184, 124, 0.7); }
+
+  /* Abfahrts-Tabelle */
+  .ab-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12.5px;
+  }
+
+  .ab-table th {
+    text-align: left;
+    padding: 10px 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    background: var(--bg-card);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
+
+  .ab-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+  }
+
+  .ab-table tr.ampel-rot td {
+    background: rgba(207, 111, 111, 0.12);
+  }
+
+  .ab-table tr.ampel-gelb td {
+    background: rgba(212, 184, 103, 0.10);
+  }
+
+  .ab-table tr.ampel-gruen td {
+    background: rgba(124, 184, 124, 0.10);
+  }
+
+  .ab-table .col-region {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--text-muted);
+    width: 60px;
+    white-space: nowrap;
+  }
+
+  .ab-table .col-time {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    width: 110px;
+    color: var(--text);
+    white-space: nowrap;
+  }
+
+  .ab-table .col-lager {
+    font-weight: 500;
+  }
+
+  .ab-info-banner {
+    background: rgba(212, 165, 116, 0.06);
+    border: 1px solid rgba(212, 165, 116, 0.2);
+    border-radius: 6px;
+    padding: 12px 16px;
+    font-size: 13px;
+    line-height: 1.55;
+    color: var(--text);
+    margin-bottom: 18px;
+  }
+
+  /* ============= MOBILE ============= */
+  @media (max-width: 768px) {
+    .home-wrap { padding: 30px 16px 80px; }
+    .hero h1 { font-size: 30px; }
+    .tx-title { font-size: 26px; }
+    .grid { grid-template-columns: 1fr; gap: 12px; }
+    .card { padding: 22px 22px 18px; min-height: 0; }
+    .step-head { padding: 14px 16px; gap: 14px; }
+    .step-num { width: 36px; height: 36px; font-size: 12px; }
+    .step-title { font-size: 16px; }
+    .step-body-inner { padding: 0 16px 18px; padding-top: 18px; }
+    .block-body { padding-left: 0; }
+    .screenshot-placeholder { margin-left: 0; padding: 24px 14px; }
+    .ref-box { margin-left: 0; }
+    .ref-table { grid-template-columns: 1fr; gap: 4px 0; }
+    .float-btn { bottom: 16px; right: 16px; padding: 12px 18px; font-size: 13px; }
+    .overlay { padding: 16px 8px; }
+    .overlay-head { padding: 16px 18px 14px; }
+    .overlay-tabs { padding: 8px 14px 0; }
+    .overlay-body { padding: 18px 14px 22px; }
+    .ab-table { font-size: 11.5px; }
+    .ab-table th, .ab-table td { padding: 7px 8px; }
+    .ab-table .col-region { width: 44px; font-size: 10px; }
+    .ab-table .col-time { width: 76px; font-size: 11px; }
+    .ref-table .ref-val { padding-left: 10px; padding-bottom: 6px; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- HOME VIEW -->
+  <section class="view active" id="homeView">
+    <div class="home-wrap">
+      <div class="hero">
+        <div class="eyebrow">FK West · Schulungsunterlage</div>
+        <h1>Anleitung <em>Schichtleitung</em></h1>
+        <p>Schritt-für-Schritt-Anleitung für die Masken im System, die künftig zur täglichen Arbeit der Schichtleitung gehören. Diese Anleitung bezieht sich ausschließlich auf die Bedienung der Transaktionen — Tagesplanung, Auslieferungs-Überwachung, Nachverfolgung von Scheinen und Bestandsführung.</p>
+      </div>
+
+      <div class="intro-banner">
+        <span class="intro-banner-icon">ℹ</span>
+        <span>Bisher wird die Schichtleitung-Arbeit am Lager noch nicht am Laptop durchgeführt. Mit der Einführung des neuen Systems werden diese vier Transaktionen zur täglichen Routine. Diese Anleitung führt durch jede einzelne Maske mit Anwendungsfall, Schritt-für-Schritt-Anleitung, Hinweisen worauf zu achten ist und Platzhalter für Screenshots.</span>
+      </div>
+
+      <div class="section-title">
+        <span class="sec-num">01</span>
+        <span class="sec-name">Transaktionen</span>
+        <span class="sec-line"></span>
+      </div>
+
+      <div class="grid" id="homeGrid"></div>
+    </div>
+  </section>
+
+  <!-- TRANSACTION VIEW -->
+  <section class="view" id="txView">
+    <div class="home-wrap">
+      <div class="nav-buttons">
+        <button class="nav-button home" onclick="navigateHome()">⌂ Startseite</button>
+        <button class="nav-button" onclick="navigateHome()">← Zurück</button>
+      </div>
+      <div class="tx-header">
+        <div class="tx-eyebrow" id="txEyebrow"></div>
+        <h1 class="tx-title" id="txTitle"></h1>
+        <p class="tx-desc" id="txDesc"></p>
+      </div>
+      <div class="steps-wrap" id="stepsWrap"></div>
+    </div>
+  </section>
+
+  <!-- FLOATING BUTTON FÜR ABFAHRTSZEITEN -->
+  <button class="float-btn" id="abfahrtsBtn" onclick="openAbfahrten()">
+    <span class="clock-icon">🕐</span>
+    <span>Abfahrtszeiten</span>
+  </button>
+
+  <!-- OVERLAY ABFAHRTSZEITEN -->
+  <div class="overlay" id="abfahrtenOverlay">
+    <div class="overlay-panel">
+      <div class="overlay-head">
+        <div class="overlay-title-block">
+          <div class="eyebrow">Referenz</div>
+          <h2>Abfahrts<em>zeiten</em></h2>
+        </div>
+        <button class="overlay-close" onclick="closeAbfahrten()" aria-label="Schließen">✕</button>
+      </div>
+      <div class="overlay-tabs">
+        <button class="overlay-tab active" data-ab-tab="werktag" onclick="switchAbTab('werktag')">Werktags</button>
+        <button class="overlay-tab" data-ab-tab="samstag" onclick="switchAbTab('samstag')">Samstags</button>
+      </div>
+      <div class="overlay-body">
+        <div class="ab-info-banner">
+          <strong>Warenverfügbarkeit ist Voraussetzung, um die Abfahrtszeiten einzuhalten.</strong>
+        </div>
+        <div class="overlay-legend">
+          <div class="overlay-legend-item"><span class="overlay-legend-color legend-rot"></span>Kommission in dringendem Zeitfenster · 15:00 – 21:00 Uhr</div>
+          <div class="overlay-legend-item"><span class="overlay-legend-color legend-gelb"></span>Kommission im Zeitfenster · 22:00 – 00:00 Uhr</div>
+          <div class="overlay-legend-item"><span class="overlay-legend-color legend-gruen"></span>Kommission im Zeitfenster · nach 01:00 Uhr</div>
+        </div>
+        <div id="abTabWerktag"></div>
+        <div id="abTabSamstag" style="display:none;"></div>
+      </div>
+    </div>
+  </div>
+
+<script>
+// ====================================================================
+// DATEN — Transaktionen mit Schritt-Anleitungen
+// ====================================================================
+
+const transactions = [
+  {
+    id: 'wevorschauliste',
+    icon: '📋',
+    color: '#6ba3d6',
+    eyebrow: 'WE-Vorschauliste',
+    title: 'WE-<em>Vorschauliste</em>',
+    code: '/LUNFK/WE_VLISTE',
+    description: 'Tagesplanung zu Schichtbeginn. Zeigt alle erwarteten Anlieferungen mit Lieferant, Artikel und Einkaufsbeleg. Grundlage für die Personalverteilung der Kommissionierer.',
+    steps: [
+      {
+        title: 'Transaktion aufrufen',
+        anwendungsfall: 'Zu Schichtbeginn — verschafft den Überblick über alle anstehenden Wareneingänge des Tages.',
+        anleitung: [
+          'Im SAP-Startbildschirm den Transaktionscode <code>/LUNFK/WE_VLISTE</code> in das Befehlsfeld oben links eingeben',
+          'Den Eintrag <code>WE-Vorschauliste</code> auswählen',
+          'Selektionsmaske öffnet sich'
+        ],
+        sieht: 'Selektionsmaske der WE-Vorschauliste mit Filterfeldern und oben den farbigen Rechtecken zur Auswahl der Variante.',
+        tipps: [
+          'Vor dem Ausführen unbedingt die richtige Variante über die farbigen Rechtecke holen (siehe nächster Schritt)'
+        ]
+      },
+      {
+        title: 'Variante holen — Erstellt-von eintragen',
+        anwendungsfall: 'Die Variante schränkt die Ansicht auf die relevanten Wareneingänge ein und enthält die feste Standard-Nummer im Erstellt-von-Feld.',
+        anleitung: [
+          'Oben über die farbigen Rechtecke die Variante holen',
+          'Im Feld <code>Erstellt von</code> die Standard-Nummer <code>5564009</code> eintragen',
+          'Aus den beiden Varianten die untere Variante <code>betrachten</code> auswählen',
+          'Auf Ausführen klicken'
+        ],
+        sieht: 'Nach dem Ausführen öffnet sich die WE-Vorschauliste mit allen relevanten Vorgängen.',
+        tipps: [
+          'Die Nummer <code>5564009</code> ist die feste Standard-Nummer für die Schichtleitung',
+          'Bei der Auswahl der Variante niemals die untere Variante <code>drucken</code> auswählen — immer nur <code>betrachten</code>'
+        ]
+      },
+      {
+        title: 'Liste betrachten und Einkaufsbeleg interpretieren',
+        anwendungsfall: 'In der geöffneten Liste alle Vorgänge im Blick — die Spalte Einkaufsbeleg zeigt anhand der Belegnummer um welche Art von Vorgang es sich handelt.',
+        anleitung: [
+          'Optional: in der Ansicht zusätzlich nach Warengruppen filtern für bessere Übersicht',
+          'Spalte <code>Einkaufsbeleg</code> betrachten',
+          'Anhand der ersten Ziffern der Belegnummer den Vorgang einordnen (siehe Referenz)'
+        ],
+        refs: [
+          {
+            title: 'Belegnummern zur Identifikation',
+            intro: 'Anhand der ersten Ziffern der Belegnummer in der Spalte Einkaufsbeleg lässt sich der Vorgang einordnen.',
+            entries: [
+              { key: '100er / 11er', val: 'Einkauf' },
+              { key: '15er', val: 'Umlagerung' },
+              { key: '16er', val: 'Lohnbearbeitung' },
+              { key: '17er', val: 'Retoure' }
+            ]
+          }
+        ],
+        sieht: 'Tabellarische Übersicht aller offenen Wareneingänge mit der Spalte Einkaufsbeleg zur Vorgangs-Identifikation.',
+        tipps: [
+          'Filter auf Warengruppen kann jederzeit gesetzt werden, um die Ansicht zu fokussieren'
+        ]
+      },
+      {
+        title: 'Spalten sortieren und filtern',
+        anwendungsfall: 'Die Liste lässt sich nach jeder beliebigen Spalte sortieren und filtern — zum Beispiel um den Einkaufsbeleg aufsteigend oder absteigend anzuzeigen.',
+        anleitung: [
+          'Gewünschte Spalte markieren (z. B. <code>Einkaufsbeleg</code>)',
+          'Auf das Drei-Balken-Symbol klicken',
+          'Aufsteigend oder absteigend wählen',
+          'Das funktioniert mit allen Spalten in der Anzeige'
+        ],
+        sieht: 'Die Liste wird neu nach der gewählten Spalte sortiert.',
+        tipps: [
+          'Mehrere Spalten nacheinander sortieren ist möglich',
+          'Sortierung lässt sich jederzeit ändern oder zurücksetzen'
+        ]
+      },
+      {
+        title: 'Nach Abteilung filtern über Disponenten-Codes',
+        anwendungsfall: 'Wenn die Belastung pro Abteilung eingeschätzt werden soll, kann gezielt nach Abteilung gefiltert werden.',
+        anleitung: [
+          'Aus der Liste zurück in die Selektionsmaske',
+          'Im Feld Disponent den passenden Abteilungs-Code eintragen (siehe Referenz)',
+          'Erneut Ausführen',
+          'Liste zeigt nun nur die gewählte Abteilung'
+        ],
+        refs: [
+          {
+            title: 'Disponenten-Codes für Abteilungen',
+            intro: 'Folgende Codes können im Disponent-Feld der Selektionsmaske eingetragen werden.',
+            entries: [
+              { key: '001', val: 'Gemüse' },
+              { key: '002', val: 'Obst' },
+              { key: '003-004', val: 'BIO' },
+              { key: '005-006', val: 'FRZ' },
+              { key: '007-009', val: 'Pilze' },
+              { key: '010', val: 'Kartoffel' },
+              { key: '090010_1021', val: 'Hamburg' },
+              { key: '090020_2001-2010', val: 'Roisdorf' },
+              { key: '090030_3021', val: 'Süd' },
+              { key: '090040_4098', val: 'Valencia' },
+              { key: '090060_6021', val: 'FK Holland' }
+            ]
+          }
+        ],
+        sieht: 'Gefilterte Liste mit nur den Vorgängen der gewählten Abteilung.',
+        tipps: [
+          'Die gleichen Disponenten-Codes funktionieren auch in der Dispoliste'
+        ]
+      },
+      {
+        title: 'Liste drucken',
+        anwendungsfall: 'Die ausgewählten Listen werden gedruckt und für die weitere Arbeit auf der Fläche genutzt.',
+        anleitung: [
+          'Auf das Drucker-Symbol klicken',
+          'Druck-Auswahl treffen',
+          'Anzahl Seiten angeben',
+          'Auftrag an den Drucker schicken',
+          'Listen am Drucker entnehmen'
+        ],
+        sieht: 'Die ausgewählten Listen werden am Drucker ausgegeben.',
+        tipps: [
+          'Mehrere Kopien drucken, wenn mehrere Abteilungen die Liste benötigen'
+        ]
+      }
+    ]
+  },
+    {
+    id: 'vl06o',
+    icon: '📤',
+    color: '#d4b867',
+    eyebrow: 'VL06O',
+    title: 'Auslieferungs-<em>Übersicht</em>',
+    code: 'VL06O',
+    description: 'Übersicht aller offenen Auslieferungen, Lohnbearbeitungen und Reklamationen über den Tag. Zur Verladung mit den Abfahrtszeiten abgleichen — sehen, welche LKW bereits abgefahren sind und welche noch offen.',
+    steps: [
+      {
+        title: 'VL06O öffnen und Zur Verladung auswählen',
+        anwendungsfall: 'Über den Tag mehrfach — zum Überblick über alles, was noch offen ist.',
+        anleitung: [
+          'Im SAP-Startbildschirm <code>VL06O</code> in das Befehlsfeld eingeben',
+          'Enter drücken',
+          '<code>Zur Verladung</code> auswählen',
+          'Selektionsmaske öffnet sich'
+        ],
+        sieht: 'Selektionsmaske der VL06O mit Filterfeldern und oben den farbigen Rechtecken zur Auswahl der Variante.',
+        tipps: [
+          'Vor dem Ausführen die Variante über die farbigen Rechtecke holen (siehe nächster Schritt)'
+        ]
+      },
+      {
+        title: 'Variante holen und ausführen',
+        anwendungsfall: 'Die Variante schränkt die Ansicht auf die für die Schichtleitung relevanten Vorgänge ein — selbe Variante wie in der WE-Vorschauliste.',
+        anleitung: [
+          'Oben über die farbigen Rechtecke die Variante holen',
+          'Dieselbe Variante eintragen wie in der WE-Vorschauliste',
+          'Auf Ausführen klicken'
+        ],
+        sieht: 'Liste aller offenen Aufträge.',
+        tipps: [
+          'Die gleiche Variante wie bei der WE-Vorschauliste verwenden'
+        ]
+      },
+      {
+        title: 'Liste sortieren und filtern',
+        anwendungsfall: 'Mit den drei Balken in den Spaltenköpfen lässt sich die Liste nach Warenempfängern, Art der Lieferung und weiteren Kriterien filtern.',
+        anleitung: [
+          'Spalte markieren (z. B. Warenempfänger oder Art der Lieferung)',
+          'Auf das Drei-Balken-Symbol klicken',
+          'Filter setzen oder Sortierung wählen'
+        ],
+        refs: [
+          {
+            title: 'Belegnummern zur Identifikation',
+            intro: 'Anhand der ersten Ziffern der Belegnummer kann sofort erkannt werden, um welche Art von Vorgang es sich handelt.',
+            entries: [
+              { key: '35er', val: 'Retoure zum Lieferanten' },
+              { key: '45er', val: 'Auslieferung' },
+              { key: '16er', val: 'Lohnbearbeitung' }
+            ]
+          }
+        ],
+        sieht: 'Eingegrenzte Liste mit den gewünschten Vorgängen.',
+        tipps: [
+          'Mehrere Filter lassen sich nacheinander kombinieren'
+        ]
+      },
+      {
+        title: 'Abgleich mit den Abfahrtszeiten',
+        anwendungsfall: 'Über den Abgleich mit den Abfahrtszeiten lässt sich prüfen, ob LKW schon abgefahren sind und somit die Zeiten eingehalten wurden.',
+        anleitung: [
+          'Abfahrtszeiten-Übersicht öffnen (Schaltfläche unten rechts)',
+          'Im System nach Warenempfänger filtern',
+          'Prüfen, ob der jeweilige Vorgang noch in der Liste auftaucht',
+          'Wird ein Vorgang nicht mehr gefunden, ist der LKW bereits abgefahren'
+        ],
+        sieht: 'Klare Sicht, welche Lieferungen noch offen sind und welche bereits abgewickelt wurden.',
+        tipps: [
+          'Filter konsequent über Warenempfänger setzen, das ist die zuverlässigste Prüfung',
+          'Bei Auffälligkeiten: Rücksprache mit den betroffenen Bereichen'
+        ]
+      },
+      {
+        title: 'Tagesabschluss und Vorbereitung der Inventur',
+        anwendungsfall: 'Wenn für den Tag alles erledigt ist — keine Ware mehr raus, nichts mehr zurück vom Abpacken — kann die Inventur gestartet werden.',
+        anleitung: [
+          'Liste auf vollständige Erledigung prüfen',
+          'Sicherstellen: keine Ware muss mehr raus',
+          'Sicherstellen: keine Ware kommt mehr zurück (z. B. vom Abpacken)',
+          'Erst dann mit der Inventur beginnen'
+        ],
+        sieht: 'Leere Liste oder nur noch wenige Restposten — Zeichen dafür, dass der Tag durch ist.',
+        tipps: [
+          'Für die Nachtschicht: kurz dokumentieren, was offen geblieben ist'
+        ]
+      }
+    ]
+  },
+    {
+    id: 'vl03n-su01',
+    icon: '🔍',
+    color: '#a88bc9',
+    eyebrow: 'VL03N + SU01',
+    title: 'Schein-<em>Nachverfolgung</em>',
+    code: 'VL03N + SU01',
+    description: 'Nachverfolgung einzelner Kommissionierscheine — wer hat wann was geändert oder gescannt? Auflösung der Benutzernummer in den realen Namen über die Änderungs-Historie für mögliche Kontaktaufnahme.',
+    steps: [
+      {
+        title: 'VL03N öffnen und in den Schein einsteigen',
+        anwendungsfall: 'Bei Unklarheiten zu einem konkreten Schein — z. B. wenn Vendel ein Duplikat verloren hat oder eine Position nachgesehen werden soll.',
+        anleitung: [
+          'Im SAP-Startbildschirm <code>VL03N</code> in das Befehlsfeld eingeben',
+          'Auslieferungsnummer eintragen',
+          'Enter drücken',
+          'Schein öffnet sich mit allen Positionen'
+        ],
+        sieht: 'Detailansicht des Scheins mit allen Positionen, Mengen, Status und Chargen.',
+        tipps: [
+          'Für den Wiederholungsdruck darf hier noch kein Enter gedrückt werden — siehe Sonderfall am Ende'
+        ]
+      },
+      {
+        title: 'Änderungs-Historie aufrufen',
+        anwendungsfall: 'Um zu sehen, wer wann was am Schein geändert hat.',
+        anleitung: [
+          'In der Detailansicht im Menü auf <code>Umfeld</code> klicken',
+          'Auf <code>Änderungen</code> klicken',
+          'Ausführen klicken',
+          'Die komplette Änderungs-Historie wird angezeigt'
+        ],
+        sieht: 'Eine Liste aller Änderungen mit Zeitstempel, Benutzernummer, Feld und altem/neuem Wert.',
+        tipps: [
+          'Benutzernummer ist nicht der Klarname — die muss in SU01 nachgeschlagen werden'
+        ]
+      },
+      {
+        title: 'SU01 — Benutzernummer in den Namen auflösen',
+        anwendungsfall: 'Wenn die Benutzernummer aus der Änderungs-Historie bekannt ist, aber unklar wer dahintersteht.',
+        anleitung: [
+          'Benutzernummer aus der Änderungs-Historie kopieren',
+          'Im SAP-Startbildschirm <code>SU01</code> in das Befehlsfeld eingeben',
+          'Enter drücken',
+          'Benutzernummer in das Eingabefeld eintragen',
+          'Auf Anzeigen klicken',
+          'Vor- und Nachname werden angezeigt'
+        ],
+        sieht: 'Stammdaten des Benutzers mit Name, Abteilung und Status.',
+        tipps: [
+          'SU01 ist eine reine Anzeige-Transaktion — keine Änderungen vornehmen',
+          'Nach Identifikation: Mitarbeiter direkt ansprechen zur Klärung'
+        ]
+      },
+      {
+        title: 'Sonderfall: Kommi-Schein erneut drucken',
+        anwendungsfall: 'Wenn ein Kommissionierschein verloren gegangen ist oder Vendel ein Duplikat nochmals braucht.',
+        anleitung: [
+          '<code>VL03N</code> aufrufen',
+          'Auslieferungsnummer eintragen — aber noch nicht Enter drücken oder in die Auslieferung reingehen',
+          'Oben im Menü auf <code>Auslieferung</code> klicken',
+          'Im Untermenü auf <code>Liefernachrichten ausgeben</code> klicken',
+          'Kommi-Schein auswählen',
+          'Kommi-Schein wird gedruckt'
+        ],
+        sieht: 'Der Druckdialog öffnet sich, danach erscheint der Schein am Drucker.',
+        tipps: [
+          'Wichtig: Liefernachrichten ausgeben muss vor dem Aufrufen der Auslieferung geklickt werden',
+          'Beim Neudruck erscheint auf dem Kommi-Schein der Aufdruck Wiederholungsdruck',
+          'Auf dem Lieferschein erscheint kein Wiederholungsdruck-Hinweis'
+        ]
+      }
+    ]
+  },
+    {
+    id: 'dispoliste',
+    icon: '📦',
+    color: '#7cb87c',
+    eyebrow: 'Dispoliste',
+    title: 'Disposition & <em>Bestand</em>',
+    code: 'Dispoliste',
+    description: 'Bestandsführung mit Filtern nach Betrieb, Lagerort und Disponent. Zeigt alle Bestandsspalten von Bestellmengen über Wareneingänge bis hin zu Auslieferungen und aktuellem Bestand.',
+    steps: [
+      {
+        title: 'Einmalige Vorbereitung: Eigenes Layout anlegen',
+        anwendungsfall: 'Beim ersten Aufruf der Dispoliste muss ein eigenes Layout angelegt werden mit den notwendigen Spalten. Dieser Schritt wird nur einmal durchgeführt — danach steht das Layout für alle künftigen Aufrufe bereit.',
+        anleitung: [
+          'Dispoliste aufrufen',
+          'In den Layout-Einstellungen ein eigenes Layout anlegen',
+          'Die notwendigen Spalten aus der Referenz auswählen (siehe Bestandsspalten-Kürzel)',
+          'Layout speichern unter eigenem Namen',
+          'Ab sofort beim Aufruf nur noch dieses Layout auswählen'
+        ],
+        refs: [
+          {
+            title: 'Bestandsspalten-Kürzel — notwendige Spalten für das Layout',
+            intro: 'Diese Spalten werden im eigenen Layout benötigt.',
+            entries: [
+              { key: 'BEOM', val: 'Bestellmenge offen — welche Ware noch kommt' },
+              { key: 'WEME', val: 'Bereits Wareneingang gebucht' },
+              { key: 'AUOG', val: 'Schon eingegeben, aber kein Warenausgang gebucht' },
+              { key: 'WAME', val: 'Warenausgang, Scheine bereits ausgebucht' },
+              { key: 'VKT', val: 'Verkauf insgesamt — Eingaben plus bereits WA-gebucht' },
+              { key: 'DISO', val: 'Aktueller Bestand' }
+            ]
+          }
+        ],
+        sieht: 'Eigene Layout-Konfiguration mit den ausgewählten Spalten.',
+        tipps: [
+          'Dies ist ein einmaliger Schritt — danach wird das Layout nur noch ausgewählt',
+          'Bei Bedarf können später weitere Spalten ergänzt werden'
+        ]
+      },
+      {
+        title: 'Dispoliste aufrufen und Betrieb, Lagerort, Disponent eintragen',
+        anwendungsfall: 'Bei Rückfragen zur Verfügbarkeit eines Artikels — wo ist die Ware, wann kommt sie, wie viel ist da.',
+        anleitung: [
+          'Dispoliste aufrufen',
+          'Im Feld <code>Betrieb</code> den passenden Wert eintragen',
+          'Im Feld <code>Lagerort</code> den passenden Wert eintragen',
+          'Im Feld <code>Disponent</code> den Abteilungs-Code eintragen (siehe Referenz)',
+          'Eigenes Layout auswählen',
+          'Ausführen'
+        ],
+        refs: [
+          {
+            title: 'Disponenten-Codes für Abteilungen',
+            intro: 'Folgende Codes können im Disponent-Feld eingetragen werden um nach Abteilung zu filtern.',
+            entries: [
+              { key: '001', val: 'Gemüse' },
+              { key: '002', val: 'Obst' },
+              { key: '003-004', val: 'BIO' },
+              { key: '005-006', val: 'FRZ' },
+              { key: '007-009', val: 'Pilze' },
+              { key: '010', val: 'Kartoffel' },
+              { key: '090010_1021', val: 'Hamburg' },
+              { key: '090020_2001-2010', val: 'Roisdorf' },
+              { key: '090030_3021', val: 'Süd' },
+              { key: '090040_4098', val: 'Valencia' },
+              { key: '090060_6021', val: 'FK Holland' }
+            ]
+          }
+        ],
+        sieht: 'Liste aller Artikel der gewählten Abteilung mit den im Layout konfigurierten Bestandsspalten.',
+        tipps: [
+          'Die gleichen Disponenten-Codes funktionieren auch in der WE-Vorschauliste',
+          'Sortieren nach Bestellmenge offen (BEOM) hilft bei der Nachverfolgung'
+        ]
+      },
+      {
+        title: 'Bestandsspalten interpretieren',
+        anwendungsfall: 'Jede Spalte zeigt einen anderen Bestandsstatus. Wichtig zu wissen wie sie zu lesen sind.',
+        anleitung: [
+          'In der Liste die Spaltenköpfe identifizieren',
+          'Bei Unsicherheit Spaltenkürzel über die Referenz nachschlagen'
+        ],
+        refs: [
+          {
+            title: 'Bestandsspalten-Kürzel',
+            intro: 'Pro Artikel zeigt die Dispoliste die im Layout konfigurierten Spalten.',
+            entries: [
+              { key: 'BEOM', val: 'Bestellmenge offen — welche Ware noch kommt' },
+              { key: 'WEME', val: 'Bereits Wareneingang gebucht' },
+              { key: 'AUOG', val: 'Schon eingegeben, aber kein Warenausgang gebucht' },
+              { key: 'WAME', val: 'Warenausgang, Scheine bereits ausgebucht' },
+              { key: 'VKT', val: 'Verkauf insgesamt — Eingaben plus bereits WA-gebucht' },
+              { key: 'DISO', val: 'Aktueller Bestand' }
+            ]
+          }
+        ],
+        sieht: 'Pro Artikel die konfigurierten Spalten mit den jeweiligen Mengen.',
+        tipps: [
+          'AUOG ist der wichtigste Wert für Tagesabschluss — wenn AUOG = 0, kann die Inventur starten',
+          'BEOM zeigt was noch unterwegs ist — wichtig für Anlieferungs-Planung'
+        ]
+      },
+      {
+        title: 'Verfügbarkeit für Kommissionierer beantworten',
+        anwendungsfall: 'Wenn ein Kommissionierer fragt, ob ein bestimmter Artikel verfügbar ist oder ob umgepackte Ware schon zurück ist.',
+        anleitung: [
+          'Artikel-Suche in der Dispoliste',
+          'DISO-Spalte prüfen — aktueller Bestand vor Ort',
+          'AUOG-Spalte prüfen — reserviert für Auslieferungen',
+          'BEOM-Spalte prüfen — was kommt noch an',
+          'Antwort an Kommissionierer geben'
+        ],
+        sieht: 'Klare Aussage zur Verfügbarkeit: wie viel verfügbar, wie viel reserviert, wie viel unterwegs.',
+        tipps: [
+          'Bei umgepackter Ware: Lohnbearbeitungs-Stand in VL06O prüfen',
+          'Bei Q-Bestand: nicht im DISO sichtbar, separat über Bestandsübersicht prüfen'
+        ]
+      },
+      {
+        title: 'Inventur-Voraussetzung prüfen',
+        anwendungsfall: 'Am Tagesende — bevor mit der Inventur begonnen wird, muss AUOG = 0 sein.',
+        anleitung: [
+          'AUOG-Spalte aller Artikel prüfen',
+          'Bei AUOG = 0 in allen Zeilen: Inventur kann starten',
+          'Bei verbleibender Menge: offene Vorgänge abschließen und erst dann Inventur'
+        ],
+        sieht: 'AUOG = 0 in jeder Zeile bedeutet: alle Auslieferungen sind final ausgebucht, Bestand ist zuverlässig.',
+        tipps: [
+          'Eine einzige Zeile mit AUOG > 0 reicht, um die Inventur unzuverlässig zu machen',
+          'Bei Eile: priorisierte Ausbuchung der offenen Posten anstoßen, dann erneut prüfen'
+        ]
+      }
+    ]
+  }
+];
+
+// ====================================================================
+// ABFAHRTSZEITEN
+// ====================================================================
+
+const abfahrtsdatenWerktag = [
+  // ROT - dringendes Zeitfenster 15-21 Uhr
+  { region: 'RR', lager: 'Oberhausen', druck: '17:00', druckRest: '', ende: '06:00', abfahrt: '07:00', ampel: 'rot' },
+  { region: 'RR', lager: 'Meckenheim', druck: '17:00', druckRest: '', ende: '10:00', abfahrt: '11:00', ampel: 'rot' },
+  { region: 'Minden', lager: 'Freienbrink 1. LKW', druck: '11:00', druckRest: '', ende: '15:00', abfahrt: '16:00', ampel: 'rot' },
+  { region: 'Minden', lager: 'Freienbrink 2. LKW', druck: '11:00', druckRest: '', ende: '15:30', abfahrt: '16:30', ampel: 'rot' },
+  { region: 'RR', lager: 'Hamm Edeka', druck: '14:00', druckRest: '', ende: '16:30', abfahrt: '17:00', ampel: 'rot' },
+  { region: 'RR', lager: 'Oberhausen', druck: '14:00', druckRest: '', ende: '17:00', abfahrt: '18:00', ampel: 'rot' },
+  { region: 'SB', lager: 'Eching 1. LKW', druck: '10:00', druckRest: '', ende: '18:00', abfahrt: '19:00', ampel: 'rot' },
+  { region: 'RR', lager: 'Meckenheim', druck: '14:00', druckRest: '', ende: '18:00', abfahrt: '19:00', ampel: 'rot' },
+  { region: 'SB', lager: 'Landsberg a. Lech', druck: '10:00', druckRest: '14:00', ende: '1.LKW 18:00 / 2.LKW 22:00', abfahrt: '19:00 / 23:00', ampel: 'rot' },
+  { region: 'SB', lager: 'Straubing', druck: '10:00', druckRest: '14:00', ende: '1.LKW 18:00 / 2.LKW 22:00', abfahrt: '19:00 / 23:00', ampel: 'rot' },
+  { region: 'NB', lager: 'Berbersdorf 1. LKW', druck: '12:00', druckRest: '', ende: '18:00', abfahrt: '19:00', ampel: 'rot' },
+  { region: 'Minden', lager: 'Freienbrink 3. LKW', druck: '14:00', druckRest: '', ende: '19:00', abfahrt: '20:00', ampel: 'rot' },
+  { region: 'SB', lager: 'Trostberg', druck: '10:00', druckRest: '14:00', ende: '1.LKW 19:00 / 2.LKW 22:00', abfahrt: '20:00 / 23:00', ampel: 'rot' },
+  { region: 'SW', lager: 'Balingen', druck: '11:00', druckRest: '15:00', ende: '1.LKW 19:00 / 2.LKW 22:00', abfahrt: '20:00 / 23:00', ampel: 'rot' },
+  { region: 'SW', lager: 'Ellhofen', druck: '11:00', druckRest: '15:00', ende: '1.LKW 19:00 / 2.LKW 21:00', abfahrt: '20:00 / 22:00', ampel: 'rot' },
+  { region: 'NB', lager: 'Berbersdorf 2. LKW', druck: '', druckRest: '15:00', ende: '20:00', abfahrt: '21:00', ampel: 'rot' },
+  { region: 'SB', lager: 'Gaimersheim', druck: '11:00', druckRest: '14:00', ende: '1.LKW 20:00 / 2.LKW 22:00', abfahrt: '21:00 / 23:00', ampel: 'rot' },
+  { region: 'Minden', lager: 'Landsberg 1.LKW', druck: '11:00', druckRest: '', ende: '21:00', abfahrt: '22:00', ampel: 'rot' },
+  { region: 'RR', lager: 'Hamm Edeka', druck: '17:00', druckRest: '', ende: '21:00', abfahrt: '22:00', ampel: 'rot' },
+
+  // GELB - Zeitfenster 22-00 Uhr
+  { region: 'NB', lager: 'Gochsheim', druck: '14:00', druckRest: '16:00', ende: '22:00', abfahrt: '23:00', ampel: 'gelb' },
+  { region: 'NB', lager: 'Marktredwitz', druck: '14:00', druckRest: '16:00', ende: '22:00', abfahrt: '23:00', ampel: 'gelb' },
+  { region: 'NB', lager: 'Schwabach', druck: '14:00', druckRest: '16:00', ende: '1.LKW 22:00 / 2.LKW 00:00', abfahrt: '23:00 / 01:00', ampel: 'gelb' },
+  { region: 'Nord', lager: 'Neumünster', druck: '11:00', druckRest: '16:00', ende: '1.LKW 22:00 / 2.LKW 00:00', abfahrt: '23:00 / 01:00', ampel: 'gelb' },
+  { region: 'Nord', lager: 'Valluhn', druck: '11:00', druckRest: '16:00', ende: '1.LKW 22:00 / 2.LKW 00:00', abfahrt: '23:00 / 01:00', ampel: 'gelb' },
+  { region: 'Nord', lager: 'Malchow', druck: '11:00', druckRest: '16:00', ende: '1.LKW 22:00 / 2.LKW 00:00', abfahrt: '23:00 / 01:00', ampel: 'gelb' },
+  { region: 'HR', lager: 'Straußfurt', druck: '10:00', druckRest: '15:00', ende: '22:00', abfahrt: '23:00', ampel: 'gelb' },
+  { region: 'Minden', lager: 'Wiefelstede 1.LKW', druck: '11:00', druckRest: '', ende: '22:00', abfahrt: '23:00', ampel: 'gelb' },
+  { region: 'SW', lager: 'Offenburg mit Blumen', druck: '12:00', druckRest: '', ende: '22:00', abfahrt: '23:00', ampel: 'gelb' },
+  { region: 'SB', lager: 'Eching 2. LKW', druck: '', druckRest: '14:00', ende: '22:30', abfahrt: '23:30', ampel: 'gelb' },
+  { region: 'Minden', lager: 'Freienbrink 4. LKW', druck: '', druckRest: '15:00', ende: '22:30', abfahrt: '23:30', ampel: 'gelb' },
+  { region: 'RR', lager: 'Hamm Edeka', druck: '17:00', druckRest: '', ende: '23:00', abfahrt: '00:00', ampel: 'gelb' },
+  { region: 'HR', lager: 'Melsungen', druck: '10:00', druckRest: '15:00', ende: '23:00', abfahrt: '00:00', ampel: 'gelb' },
+  { region: 'Minden', lager: 'Wiefelstede 2. LKW', druck: '14:00', druckRest: '', ende: '23:00', abfahrt: '00:00', ampel: 'gelb' },
+  { region: 'Minden', lager: 'Landsberg 2.LKW', druck: '', druckRest: '15:00', ende: '00:00', abfahrt: '01:00', ampel: 'gelb' },
+  { region: 'RR', lager: 'Stroetmann', druck: '17:00', druckRest: '', ende: '00:00', abfahrt: '01:00', ampel: 'gelb' },
+  { region: 'Minden', lager: 'Lauenau 1.LKW', druck: '11:00', druckRest: '', ende: '00:00', abfahrt: '01:00', ampel: 'gelb' },
+  { region: 'SW', lager: 'Heddesheim', druck: '12:00', druckRest: '', ende: '00:00', abfahrt: '01:00', ampel: 'gelb' },
+  { region: 'SW', lager: 'St. Ingbert', druck: '12:00', druckRest: '', ende: '00:00', abfahrt: '01:00', ampel: 'gelb' },
+  { region: 'SW', lager: 'Offenburg', druck: '15:00', druckRest: '', ende: '00:00', abfahrt: '01:00', ampel: 'gelb' },
+
+  // GRÜN - nach 01:00 Uhr
+  { region: 'HR', lager: 'Buseck', druck: '10:00', druckRest: '15:00', ende: '01:00', abfahrt: '02:00', ampel: 'gruen' },
+  { region: 'RR', lager: 'Hamm', druck: '17:00', druckRest: '', ende: '01:00', abfahrt: '02:00', ampel: 'gruen' },
+  { region: 'Minden', lager: 'Lauenau 2.LKW', druck: '14:00', druckRest: '', ende: '01:00', abfahrt: '02:00', ampel: 'gruen' },
+  { region: 'Minden', lager: 'Wiefelstede 3.LKW', druck: '', druckRest: '15:00', ende: '02:00', abfahrt: '03:00', ampel: 'gruen' },
+  { region: 'Minden', lager: 'Benteler Langenberg', druck: '', druckRest: '', ende: '03:00', abfahrt: '04:00', ampel: 'gruen' },
+  { region: 'Minden', lager: 'Lauenau 3. LKW', druck: '14:00', druckRest: '', ende: '03:30', abfahrt: '04:30', ampel: 'gruen' },
+  { region: 'Minden', lager: 'Lauenau 4. LKW', druck: '', druckRest: '15:00', ende: '04:00', abfahrt: '05:00', ampel: 'gruen' }
+];
+
+const abfahrtsdatenSamstag = [
+  { region: 'RR', lager: 'Meckenheim', ende: 'Samstag 10:00', abfahrt: '11:00' },
+  { region: 'SW', lager: 'Balingen', ende: 'Samstag 11:00', abfahrt: '12:00' },
+  { region: 'SW', lager: 'Offenburg', ende: 'Samstag 12:00', abfahrt: '13:00' },
+  { region: 'SB', lager: 'Gaimersheim', ende: 'Samstag 13:00', abfahrt: '14:00' },
+  { region: 'SB', lager: 'Straubing', ende: 'Samstag 14:00', abfahrt: '15:00' },
+  { region: 'SB', lager: 'Landsberg a. Lech', ende: 'Samstag 14:00', abfahrt: '15:00' }
+];
+
+function renderAbfahrtsTabellen() {
+  // Werktag-Tabelle
+  let werktagHtml = '<table class="ab-table"><thead><tr>' +
+    '<th>Region</th>' +
+    '<th>Lager</th>' +
+    '<th>Ausdruck Hauptbestellung</th>' +
+    '<th>Ausdruck Rest</th>' +
+    '<th>Ende Kommissionierung</th>' +
+    '<th>Abfahrtszeit</th>' +
+  '</tr></thead><tbody>';
+
+  abfahrtsdatenWerktag.forEach(row => {
+    werktagHtml += '<tr class="ampel-' + row.ampel + '">' +
+      '<td class="col-region">' + row.region + '</td>' +
+      '<td class="col-lager">' + row.lager + '</td>' +
+      '<td class="col-time">' + (row.druck || '—') + '</td>' +
+      '<td class="col-time">' + (row.druckRest || '—') + '</td>' +
+      '<td class="col-time">' + row.ende + '</td>' +
+      '<td class="col-time">' + row.abfahrt + '</td>' +
+    '</tr>';
+  });
+  werktagHtml += '</tbody></table>';
+  document.getElementById('abTabWerktag').innerHTML = werktagHtml;
+
+  // Samstag-Tabelle
+  let samstagHtml = '<table class="ab-table"><thead><tr>' +
+    '<th>Region</th>' +
+    '<th>Lager</th>' +
+    '<th>Ende Kommissionierung</th>' +
+    '<th>Abfahrtszeit</th>' +
+  '</tr></thead><tbody>';
+
+  abfahrtsdatenSamstag.forEach(row => {
+    samstagHtml += '<tr>' +
+      '<td class="col-region">' + row.region + '</td>' +
+      '<td class="col-lager">' + row.lager + '</td>' +
+      '<td class="col-time">' + row.ende + '</td>' +
+      '<td class="col-time">' + row.abfahrt + '</td>' +
+    '</tr>';
+  });
+  samstagHtml += '</tbody></table>';
+  document.getElementById('abTabSamstag').innerHTML = samstagHtml;
+}
+
+function openAbfahrten() {
+  document.getElementById('abfahrtenOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeAbfahrten() {
+  document.getElementById('abfahrtenOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function switchAbTab(tab) {
+  document.querySelectorAll('.overlay-tab').forEach(t => {
+    t.classList.toggle('active', t.dataset.abTab === tab);
+  });
+  document.getElementById('abTabWerktag').style.display = tab === 'werktag' ? 'block' : 'none';
+  document.getElementById('abTabSamstag').style.display = tab === 'samstag' ? 'block' : 'none';
+}
+
+// ESC schließt Overlay
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeAbfahrten();
+});
+
+// Klick außerhalb des Panels schließt
+document.getElementById('abfahrtenOverlay').addEventListener('click', (e) => {
+  if (e.target.id === 'abfahrtenOverlay') closeAbfahrten();
+});
+
+// ====================================================================
+// RENDERING
+// ====================================================================
+
+function renderHome() {
+  const grid = document.getElementById('homeGrid');
+  grid.innerHTML = transactions.map(tx => {
+    return '' +
+      '<div class="card" data-tx-id="' + tx.id + '" style="--area-color: ' + tx.color + '">' +
+        '<div class="card-head">' +
+          '<div class="card-icon">' + tx.icon + '</div>' +
+          '<span class="card-tx">' + tx.code + '</span>' +
+        '</div>' +
+        '<h3>' + tx.title.replace(/<em>|<\/em>/g, '') + '</h3>' +
+        '<p class="card-desc">' + tx.description + '</p>' +
+        '<div class="card-foot">' +
+          '<span class="card-stats">' + tx.steps.length + ' Schritte</span>' +
+          '<div class="card-arrow">→</div>' +
+        '</div>' +
+      '</div>';
+  }).join('');
+
+  grid.querySelectorAll('.card').forEach(card => {
+    card.addEventListener('click', () => navigateToTx(card.dataset.txId));
+  });
+}
+
+function navigateToTx(txId) {
+  const tx = transactions.find(t => t.id === txId);
+  if (!tx) return;
+
+  document.getElementById('txEyebrow').textContent = tx.eyebrow;
+  document.getElementById('txTitle').innerHTML = tx.title;
+  document.getElementById('txDesc').textContent = tx.description;
+
+  const wrap = document.getElementById('stepsWrap');
+  wrap.innerHTML = tx.steps.map((step, idx) => {
+    return renderStep(step, idx + 1);
+  }).join('');
+
+  // Click handlers
+  wrap.querySelectorAll('.step-head').forEach(head => {
+    head.addEventListener('click', () => {
+      head.parentElement.classList.toggle('expanded');
+    });
+  });
+
+  // Ref-Box click handlers
+  wrap.querySelectorAll('.ref-box-head').forEach(head => {
+    head.addEventListener('click', (e) => {
+      e.stopPropagation();
+      head.parentElement.classList.toggle('open');
+    });
+  });
+
+  showView('tx');
+  window.scrollTo({ top: 0, behavior: 'instant' });
+}
+
+function navigateHome() {
+  showView('home');
+  window.scrollTo({ top: 0, behavior: 'instant' });
+}
+
+function showView(name) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  const idMap = { 'home': 'homeView', 'tx': 'txView' };
+  document.getElementById(idMap[name]).classList.add('active');
+  // Floating-Button nur auf Transaktions-Seite zeigen
+  const fb = document.getElementById('abfahrtsBtn');
+  if (name === 'tx') {
+    fb.classList.add('visible');
+  } else {
+    fb.classList.remove('visible');
+  }
+}
+
+function renderStep(step, num) {
+  const numStr = String(num).padStart(2, '0');
+  return '' +
+    '<div class="step-node">' +
+      '<div class="step-head">' +
+        '<div class="step-num">' + numStr + '</div>' +
+        '<div class="step-title">' + step.title + '</div>' +
+        '<div class="step-toggle">∨</div>' +
+      '</div>' +
+      '<div class="step-body"><div class="step-body-inner">' +
+        renderBlock('A', '#6ba3d6', 'Anwendungsfall', '<p>' + step.anwendungsfall + '</p>') +
+        renderBlock('S', '#d4a574', 'Schritt-Anleitung',
+          '<ol>' + step.anleitung.map(a => '<li>' + a + '</li>').join('') + '</ol>' +
+          (step.anleitungExtra || '')
+        ) +
+        renderRefBoxes(step.refs) +
+        renderBlock('W', '#7cb87c', 'Was siehst du?', '<p>' + step.sieht + '</p>') +
+        renderTipsBlock(step.tipps) +
+        renderScreenshot(step.title) +
+      '</div></div>' +
+    '</div>';
+}
+
+function renderRefBoxes(refs) {
+  if (!refs || refs.length === 0) return '';
+  return refs.map(ref => {
+    const rows = ref.entries.map(e =>
+      '<div class="ref-key">' + e.key + '</div><div class="ref-val">' + e.val + '</div>'
+    ).join('');
+    return '' +
+      '<div class="ref-box">' +
+        '<div class="ref-box-head">' +
+          '<span class="ref-box-icon">i</span>' +
+          '<span class="ref-box-title">' + ref.title + '</span>' +
+          '<span class="ref-box-chevron">∨</span>' +
+        '</div>' +
+        '<div class="ref-box-body"><div class="ref-box-body-inner">' +
+          (ref.intro ? '<p style="font-size: 13px; line-height: 1.55; color: var(--text-muted); margin-bottom: 10px;">' + ref.intro + '</p>' : '') +
+          '<div class="ref-table">' + rows + '</div>' +
+        '</div></div>' +
+      '</div>';
+  }).join('');
+}
+
+function renderBlock(letter, color, label, body) {
+  return '' +
+    '<div class="block">' +
+      '<div class="block-label">' +
+        '<span class="block-label-icon" style="--block-color: ' + color + '">' + letter + '</span>' +
+        '<span class="block-label-text">' + label + '</span>' +
+      '</div>' +
+      '<div class="block-body">' + body + '</div>' +
+    '</div>';
+}
+
+function renderTipsBlock(tipps) {
+  if (!tipps || tipps.length === 0) return '';
+  return '' +
+    '<div class="block tips">' +
+      '<div class="block-label">' +
+        '<span class="block-label-icon" style="--block-color: #d4b867">!</span>' +
+        '<span class="block-label-text">Tipps & Stolperfallen</span>' +
+      '</div>' +
+      '<div class="block-body">' +
+        '<ul>' + tipps.map(t => '<li>' + t + '</li>').join('') + '</ul>' +
+      '</div>' +
+    '</div>';
+}
+
+function renderScreenshot(title) {
+  return '' +
+    '<div class="block">' +
+      '<div class="block-label">' +
+        '<span class="block-label-icon" style="--block-color: #a88bc9">📷</span>' +
+        '<span class="block-label-text">Screenshot</span>' +
+      '</div>' +
+      '<div class="screenshot-placeholder">' +
+        '<span class="ph-icon">⛶</span>' +
+        '<span class="ph-label">Screenshot folgt</span>' +
+        '<span class="ph-hint">Hier kommt der Screenshot der Maske bei diesem Schritt rein.</span>' +
+      '</div>' +
+    '</div>';
+}
+
+// ====================================================================
+// INIT
+// ====================================================================
+
+renderHome();
+renderAbfahrtsTabellen();
+showView('home');
+</script>
+
+</body>
+</html>
