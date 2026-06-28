@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#16a34a" />
+  <title>Ladenkarte &amp; Einkaufsroute</title>
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="icon" href="icon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="icon.svg" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="appbar">
+    <div class="appbar__brand">
+      <span class="appbar__logo" aria-hidden="true">🛒</span>
+      <div>
+        <h1 class="appbar__title">Ladenkarte</h1>
+        <p class="appbar__store" id="storeName">&nbsp;</p>
+      </div>
+    </div>
+    <div class="roleswitch" role="tablist" aria-label="Ansicht wählen">
+      <button class="roleswitch__btn is-active" id="roleKunde" role="tab" aria-selected="true">
+        🛍️ Kunde
+      </button>
+      <button class="roleswitch__btn" id="roleHaendler" role="tab" aria-selected="false">
+        🧰 Händler
+      </button>
+    </div>
+  </header>
+
+  <main id="view" class="view"></main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
